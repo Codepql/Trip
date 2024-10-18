@@ -9,7 +9,9 @@
   /* 全局修改search-icon */
   --van-search-left-icon-color: var(--primary-color) !important;
 
-  --van-primary-color:var(--primary-color)
+  --van-primary-color:var(--primary-color);
+
+  --van-tab-active-text-color:var(--primary-color)!important;
 }
 
 body {
