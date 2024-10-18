@@ -106,17 +106,17 @@ defineProps({
   }
 
   .tags {
-
+    display: flex;
+    flex-wrap: wrap;
     line-height: 22px;
     margin: 16px 0;
 
-
     .item {
-      color: #999;
+      color: #f7f9fb;
+      margin: 3px 0;
       margin-right: 20px;
 
       box-sizing: border-box;
-
       border-radius: 6px;
       background-color: #eee;
     }

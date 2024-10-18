@@ -57,6 +57,7 @@ watch(scrollTop, (newTop) => {
   isShowSearchBar.value = newTop > 200
 })
 
+// 记住页面滚动的位置
 onActivated(() => {
   homeRef.value?.scrollTo( {
     top: scrollTop.value

@@ -31,18 +31,8 @@
       <img src="@/assets/img/detail/icon_ensure.webp" alt="">
       <div class="text">念转旅途，永无止境！</div>
     </div>
-    <div class="resreve">
-      <div class="chat">
-        <img src="@/assets/img/detail/icon_chat.webp" alt="">
-        <div class="text">聊天</div>
-      </div>
-      <i>|</i>
-      <div class="price">
-        <div class="newPrice">￥{{ pricePart.priceModule.product.finalPrice }}</div>
-        <span class="comPrice">￥/晚</span>
-        <div class="oldPrice comPrice">￥{{ pricePart.priceModule.product.productPrice }}</div>
-      </div>
-      <div class="buy">预定当前房源</div>
+    <div class="buy" v-if="pricePart">
+      <detail-price :price-data="pricePart.priceModule.product"/>
     </div>
   </div>
 </template>
@@ -61,6 +51,7 @@ import DetailComment from './cpns/detail_05_comment.vue';
 import DetailNotice from './cpns/detail_06_notice.vue';
 import DetailMap from './cpns/detail_07_map.vue';
 import DetailIntro from './cpns/detail_08_intro.vue';
+import DetailPrice from './cpns/detail_09_price.vue';
 
 const route = useRoute()
 const router = useRouter()
@@ -104,43 +95,60 @@ const getSectionRef = (value) => {
   sectionEls.value[name] = value.$el
 }
 
+// tabControl 点击事件
+let isClick = false
+let currentDistance = -1
 const onClickTab = (index) => {
   // 数组
   // console.log(index.name)
-  // let instance = sectionEls[index.name].offsetTop
+  // let distance = sectionEls[index.name].offsetTop
   // 对象
   const key = Object.keys(sectionEls.value)[index.name]
   const el = sectionEls.value[key]
-  let instance = el.offsetTop
+  let distance = el.offsetTop
   if(index.name !== 0) {
-    instance = instance - 44
+    distance = distance - 44
   }
 
+  isClick = true
+  currentDistance = distance
+
   detailRef.value.scrollTo({
-    top:  instance,
+    top:  distance,
     behavior: 'smooth' // 使滚动过程更平滑
   })
 }
 
 // 页面滚动，滚动时匹配对应的tabControl 的 index
-// const tabControlRef = ref()
-// watch(scrollTop, (newValue) => {
-//   // 1 获取所有区域的 offsetTop
-//   const els = Object.values(sectionEls.value)
-//   const values = els.map(el => el.offsetTop)
+const active = ref(0)
 
-//   // 2 根据newValue 去匹配相应的索引值
-//   let index = values.length - 1
-//   for(let i = 0; i < values.length; i++) {
-//     if(values[i] > newValue + 44) {
-//       index = i - 1
-//       break
-//     }
-//   }
-  
-//   console.log(tabControlRef)
+let newValue1 = ref(0)
+watch(scrollTop, (newValue) => {
 
-// })
+   newValue1 = Math.ceil(newValue) // 向上取整
+  if ( newValue1 === currentDistance ) {
+    isClick = false
+  }
+
+  if (isClick) return 
+  // 1 获取所有区域的 offsetTop
+  const els = Object.values(sectionEls.value)
+  const values = els.map(el => el.offsetTop)
+
+  // 2 根据newValue 去匹配相应的索引值
+  let index = values.length - 1
+  for(let i = 0; i < values.length; i++) {
+    if(values[i] > newValue + 45) {
+      index = i - 1
+      break
+    }
+  }
+  // console.log(index)
+
+  // 3 赋值给 active, 让 tabControl 切换
+  active.value = index
+
+})
     
 </script>
 
@@ -176,69 +184,6 @@ const onClickTab = (index) => {
     }
   }
 
-  .resreve {
-    height: 50px;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 999;
-
-    display: flex;
-    align-items: center;
-    text-align: center;
-    padding: 0 12px;
-
-    background-color: #efefef;
-
-    .chat {
-      width: 30px;
-      font-size: 12px;
-
-      img {
-        width: 20px;
-      }
-    }
-
-    i {
-      padding: 0 6px;
-    }
-
-    .price {
-      flex: 1;
-      display: flex;
-      padding-left: 5px;
-      padding-top: 8px;
-
-      .newPrice {
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--primary-color);
-      }
-
-      .comPrice {
-        font-size: 12px;
-        color: #666;
-        padding-left: 2px;
-        padding-top: 2px;
-      }
-
-      .oldPrice {
-        text-decoration: line-through;
-      }
-    }
-
-
-    .buy {
-      width: 150px;
-      height: 50px;
-      line-height: 50px;
-      font-size: 16px;
-      // text-align: center;
-      color: #FFF;
-      background-color: var(--primary-color);
-    }
-  }
 }
 
 
