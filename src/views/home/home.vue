@@ -30,9 +30,6 @@ import homeContent from './cpns/home-content.vue';
 import useScroll from '@/hooks/useScroll';
 import searchBar from '@/components/search-bar/search-bar.vue';
 
-
-
-
 // 发送网络请求
 const homeStore = useHomeStore()
 homeStore.fetchHotSuggestsData()
