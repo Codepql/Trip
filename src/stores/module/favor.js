@@ -3,8 +3,8 @@ import { defineStore } from "pinia";
 
 const useFavorStore = defineStore("favor", {
   state: () => ({
-    favorList: [],
-    favorHistory: []
+    favorList: {},
+    favorHistory: {}
 
   }),
   actions: {

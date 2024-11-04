@@ -4,23 +4,44 @@
       <img :src="favorShowData.defaultPicture" alt="">
       <div class="above">
         <div class="header">
-          <img :src="favorShowData.landlordHeadStyle.head" alt="">
+          <img :src="favorShowData.landlordHeadStyle?.head" alt="">
         </div>
         <van-icon name="like" size="25" color="red"/>
         <div class="totalCount">
           <van-icon name="comment-o" size="26" color="white"/>
-          <span>{{ favorShowData.commentBrief.totalCount }}</span>
+          <span>{{ favorShowData.commentBrief?.totalCount }}</span>
         </div>
       </div>
       <div class="score">
-          <span>{{ favorShowData.commentBrief.overall }}</span>
+          <span class="all">{{ favorShowData.commentBrief?.overall }}分</span>
+          <span class="title">{{ favorShowData.commentBrief?.scoreTitle }}</span>
         </div>
     </div>
     <div class="info">
-      <div class="address">地址</div>
+      <div class="address">
+        <span class="name">{{ favorShowData.address }}</span>
+        <template v-for="(item, index) in favorShowData.unitSummeries">
+            <span v-if="index != 2" class="intro">
+              {{ item.text }}  
+            </span>
+        </template>
+      </div>
       <div class="unitName">{{ favorShowData.unitName }}</div>
-      <div class="houseTags">减价</div>
-      <div class="price">价格</div>
+      <div class="houseTags">
+        <template v-for="(item, index) in favorShowData.houseTags">
+          <span :style="{color: item.color, backgroundColor: item.background.color}">
+            <span class="tags">{{ item.text }} </span>
+          </span>
+        </template>
+      </div>
+      <div class="price">
+        <div class="newPrice">¥{{ favorShowData.finalPrice }}</div>
+        <div class="oldPrice">¥{{ favorShowData.productPrice }}</div>
+        <div class="text">
+          <van-icon name="service-o" />
+          {{ favorShowData.priceTipBadge?.text }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -77,12 +98,85 @@
     }
 
     .score {
+      height: 18px;
+      line-height: 18px;
+      font-size: 12px;
+      font-weight: 600;
       position: absolute;
-      color: #000;
       left: 8px;
       bottom: 6px;
       border-radius: 8px;
       background-color: #fff;
+
+      .all {
+        color: #333;
+        padding: 0 5px;
+      }
+
+      .title {
+        color: #999;
+        padding: 0 5px;
+      }
+    }
+  }
+
+  .info {
+
+    .address {
+      font-size: 12px;
+      padding: 8px 0;
+
+      .name {
+        padding: 2px 3px;
+        border-radius: 3px;
+        color: #fff;
+        background-color: #333;
+      }
+
+      .intro {
+        color: #999;
+        padding-left: 8px;
+      }
+
+    }
+
+    .unitName {
+      font-size: 18px;
+    }
+
+    .houseTags {
+      font-size: 12px;
+      padding: 8px 0;
+      padding-right: 6px;
+
+      .tags {
+        padding-right: 12px;
+      }
+    }
+
+    .price {
+      display: flex;
+      align-items: flex-end;
+
+      .newPrice {
+        font-size: 18px;
+        color: var(--primary-color);
+      }
+
+      .oldPrice {
+        font-size: 12px;
+        color: #999;
+        padding: 2px 12px;
+        text-decoration: line-through;
+      }
+
+      .text {
+        font-size: 12px;
+        color: #fff;
+        background-color: rgb(245, 78, 78);
+        border-radius: 12px;
+        padding: 0 5px;
+      }
     }
   }
 }
