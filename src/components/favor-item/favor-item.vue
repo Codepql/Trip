@@ -4,17 +4,17 @@
       <img :src="favorShowData.defaultPicture" alt="">
       <div class="above">
         <div class="header">
-          <img :src="favorShowData.landlordHeadStyle?.head" alt="">
+          <img :src="favorShowData.landlordHeadStyle.head" alt="">
         </div>
         <van-icon name="like" size="25" color="red"/>
         <div class="totalCount">
           <van-icon name="comment-o" size="26" color="white"/>
-          <span>{{ favorShowData.commentBrief?.totalCount }}</span>
+          <span>{{ favorShowData.commentBrief.totalCount }}</span>
         </div>
       </div>
       <div class="score">
-          <span class="all">{{ favorShowData.commentBrief?.overall }}分</span>
-          <span class="title">{{ favorShowData.commentBrief?.scoreTitle }}</span>
+          <span class="all">{{ favorShowData.commentBrief.overall }}分</span>
+          <span class="title">{{ favorShowData.commentBrief.scoreTitle }}</span>
         </div>
     </div>
     <div class="info">
@@ -37,9 +37,9 @@
       <div class="price">
         <div class="newPrice">¥{{ favorShowData.finalPrice }}</div>
         <div class="oldPrice">¥{{ favorShowData.productPrice }}</div>
-        <div class="text">
-          <van-icon name="service-o" />
-          {{ favorShowData.priceTipBadge?.text }}
+        <div class="text" v-if="favorShowData.priceTipBadge">
+          <van-icon name="volume-o" />
+          {{ favorShowData.priceTipBadge.text }}
         </div>
       </div>
     </div>

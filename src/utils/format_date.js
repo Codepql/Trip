@@ -7,3 +7,4 @@ export function formatMonthDay(date, formatStr = "MM月DD日") {
 export function getDiffDays(nowDate, newDate) {
   return dayjs(newDate).diff(nowDate, "day")
 }
+

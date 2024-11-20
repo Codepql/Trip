@@ -27,19 +27,17 @@
         </template>
         <!-- 右边 -->
         <template #right>
-          <van-icon name="chat-o" size="20"/>
+          <img src="https://pic.tujia.com/upload/festatic/publicImages/mob-TjHeader-header-right.png" alt="">
         </template>
         </van-nav-bar>
       </div>
     </div>
     <!-- 内容 我的收藏-->
     <div class="content" v-if="isShow">
-        <van-tabs v-model:active="tabActive">
+        <van-tabs v-model:active="tabActive" sticky offset-top="46">
           <van-tab>
             <template #title>房屋</template>
-            <template v-for="(value, key, index) in favorList">
-              <favor-list :favor-data="value"/>
-            </template>
+              <favor-list/>
           </van-tab>
           <van-tab>
             <template #title>房东</template>
@@ -49,15 +47,15 @@
     </div>
     <!-- 历史收藏 -->
     <div class="fa-history" v-if="!isShow">
-      <favor-history/>
+        <favor-history/>
     </div>
+
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import router from '@/router';
-import { storeToRefs } from 'pinia';
 
 import FavorList from './cpns/favor-list.vue'
 import FavorLandlord from './cpns/favor-landlord.vue';
@@ -80,8 +78,7 @@ const tabActive = ref()
 // 发送网络请求 从store获取数据
 const favorStore = useFavorStore()
 favorStore.fetchFavorListData()
-const { favorList } = storeToRefs(favorStore)
-
+favorStore.fetchFavorHistoryData()
 
 
 
@@ -90,7 +87,8 @@ const { favorList } = storeToRefs(favorStore)
 <style lang="less" scoped>
 
 .favor {
-  padding-bottom: 60px;
+  height: 100vh;
+  margin-bottom: 50px;
 
   .top {
     height: 46px;
@@ -102,6 +100,11 @@ const { favorList } = storeToRefs(favorStore)
       right: 0;
       height: 46px;
       z-index: 9;
+
+      img {
+        width: 20px;
+        height: 15px;
+      }
     }
 
     .title {
@@ -132,6 +135,11 @@ const { favorList } = storeToRefs(favorStore)
   }
 
   .content {
+    height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+  .fa-history {
     height: 100vh;
     overflow-y: auto;
     box-sizing: border-box;

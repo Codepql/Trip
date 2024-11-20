@@ -15,16 +15,17 @@
     </div>
     <div class="right">
       <i class="icon-search">
-        <img src="@/assets/img/serach/icon_search.webp" alt="">
+        <!-- <img src="@/assets/img/serach/icon_search.webp" alt=""> -->
+        <van-icon name="search" size="26" color="#ff9854"/>
       </i>
     </div>
   </div>
 </template>
 
 <script setup>
-import useMainStore from '@/stores/module/main';
-import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
+import useMainStore from '@/stores/module/main';
 import { formatMonthDay } from "@/utils/format_date";
 
 

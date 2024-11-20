@@ -1,5 +1,5 @@
-import { getFavorList } from "@/serviecs/modules/favor";
 import { defineStore } from "pinia";
+import { getFavorList, getFavorHistory } from "@/serviecs/modules/favor";
 
 const useFavorStore = defineStore("favor", {
   state: () => ({
@@ -10,9 +10,15 @@ const useFavorStore = defineStore("favor", {
   actions: {
     async fetchFavorListData() {
       const res = await getFavorList()
-      this.favorList = res.data.data
+      this.favorList = res.data
+    },
+    
+    async fetchFavorHistoryData() {
+      const res = await getFavorHistory()
+      this.favorHistory = res.data
     }
   }
+  
 })
 
 export default useFavorStore

@@ -10,19 +10,24 @@
       点击<van-icon name="like" color="red"/>即可收藏对应的房东
     </div>
     <div class="stroll">
-      <span>随便去逛逛</span>
+      <div @click="onBack">随便去逛逛</div>
     </div>
   </div>
 </template>
 
 <script setup>
+
+// 点击返回房东
+const onBack = () => {
+  console.log("传递参数到父组件~")
+}
     
 </script>
 
 <style lang="less" scoped>
 
 .favor-landlord {
-  height: 38em;
+  height: calc(100vh - 96px);
   display: flex;
   flex-direction: column;
   justify-content: center;
