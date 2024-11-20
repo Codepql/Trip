@@ -1,5 +1,6 @@
 <template>
   <div class="search">
+    <!-- 直接在template中获取 -->
     <!-- <h2>开始时间：{{ $route.query.startDate }}</h2>
     <h2>结束时间：{{ $route.query.endDate }}</h2>
     <h2>我的位置：{{ $route.query.currentCity }}</h2> -->
